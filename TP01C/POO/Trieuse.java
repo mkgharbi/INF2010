@@ -6,33 +6,33 @@ import java.util.Comparator;
 
 
 public class Trieuse {
-   
+
     public static final Comparator<Etudiant> Par_nom    = new NomOrdre();
     public static final Comparator<Etudiant> Par_section = new SectionOrdre();
 
 
     private static class NomOrdre implements Comparator<Etudiant> {
         public int compare(Etudiant x, Etudiant y) {
-           // completer
+            // completer
         }
     }
 
 
     private static class SectionOrdre implements Comparator<Etudiant> {
         public int compare(Etudiant x, Etudiant y) {
-             // completer
+            // completer
         }
     }
 
                 
-          // Ajouter des méthodes  ParNom() et ParSection()
+        // Ajouter des méthodes  ParNom() et ParSection()
 
-               //completer 
+            //completer 
 
-   
+    
     public static void main(String[] args) {
 
-       
+    
         Etudiant e = new Etudiant("1897453","John",3);
 		
 			
@@ -47,15 +47,15 @@ public class Trieuse {
         Etudiant Karl     = new Etudiant("1797433","Karl",   1);
         Etudiant Ahmed    = new Etudiant("1897453","Ahmed",    2);
         Etudiant Sam      = new Etudiant("1977411","Sam",  3);
-       
+        
         Etudiant[] etudiants = {
             john, Caroline, Karl, Ahmed, Sam
         };
 
-         // Completer le pseudo-code pour trie les etudiants par nom -section 
+        // Completer le pseudo-code pour trie les etudiants par nom -section 
         System.out.println("Par le nom ");
         System.out.println("----------");
-               // Completer
+            // Completer
         System.out.println("----------");
         
 
@@ -63,10 +63,10 @@ public class Trieuse {
 
         System.out.println("Par section");
         System.out.println("----------");
-                 // Completer
+                // Completer
         System.out.println("----------");
 
-       
+        
         Etudiant carlos = new Etudiant("1698853","carlos", 3);
         Etudiant Ines = new Etudiant("1897456","Ines", 2);
 

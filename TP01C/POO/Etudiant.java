@@ -15,19 +15,14 @@ public class Etudiant {
 	private NoteCours [] notes;
 	
 	
-	
-	 public Etudiant(String Matr,String nom, int section) {
-              this.Matr = Matr; 
-              this.nom = nom; 
-              this.section = section; 
+	public Etudiant(String Matr,String nom, int section) {
+            this.Matr = Matr; 
+            this.nom = nom; 
+            this.section = section; 
 	    }
-        
-         
 	
 	public void AjouterNote(String sigle, String titre, int note){ 
-		
-		
-		
+			
 		if( notes.length == n_des_notes ) {
 			NoteCours [ ] old = notes;
 			notes = new NoteCours[ n_des_notes * 2 + 1 ];
@@ -38,7 +33,8 @@ public class Etudiant {
 		notes[n_des_notes].sigle = sigle;
 		notes[n_des_notes].titre = titre;
 		notes[n_des_notes].note = note;
-			
+
+		//Icrementer le nombre de notes : 
 		n_des_notes++ ;
 		
 	}
@@ -49,8 +45,8 @@ public class Etudiant {
 			moyenne += notes[i].note;  	// Ajouter l'element note de chaque case du tableau notes. 
 		}
 		moyenne = moyenne / (notes.length);
-		
 		return moyenne;
+
 	}
 
 	public String getMatr() {
@@ -91,8 +87,10 @@ public class Etudiant {
 	
     @Override
 	public String toString() {
-		return "Etudiant [N=" + N + ", Matr=" + Matr + ", nom=" + nom + ", prenom=" + prenom + ", email=" + email
-				+ ", section=" + section + ", n_des_notes=" + n_des_notes + ", notes=" + Arrays.toString(notes) + "]";
+		return "Etudiant [N=" + N + ", Matr=" + Matr +
+				", nom=" + nom + ", prenom=" + prenom + ", email=" + email
+				+ ", section=" + section + ", n_des_notes=" + n_des_notes +
+				", notes=" + Arrays.toString(notes) + "]";
 	}
     
     public boolean equals(Object etudiant_x) { 
@@ -100,9 +98,7 @@ public class Etudiant {
     	//pour chaque etudiant. La comparaison peut se faire 
     	//seulement en comparant les chaines de Matr 
     	//de l'etudiant_x et de l'etudiant(this)
-    	return (((Etudiant) etudiant_x).getMatr() == this.Matr) ? true : false; //Operateur Terne
+    	return (((Etudiant) etudiant_x).getMatr() == this.Matr) ? true : false; //Operateur Terner
     }
-    
-   
 
 }
