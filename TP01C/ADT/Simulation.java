@@ -5,20 +5,18 @@ import java.util.Random;
 public class Simulation {
 	 private static Random random;  
 
-	 //Retourne un nombre rÃ©el alÃ©atoire uniformÃ©ment dans [0,1[
+	 //Retourne un nombre réel aléatoire uniformément dans [0,1[
 	    public static double uniform() {
-	        //completer
+	    	return Math.random();
 	    }
 
-	 
-	 
-	 //Retourne un nombre entier alÃ©atoire uniformÃ©ment dans [0,n[
+	 //Retourne un nombre entier aléatoire uniformément dans [0,n[
 	    public static int uniform(int n) {
-	        //completer
+			return (int)(Math.random() * n);
 	    }
 
-	//Retourne un entier long alÃ©atoire uniformÃ©ment dans [0, n[.
-        // Vous pouviez trouver le code https://docs.oracle.com/javase/8/docs/api/java/util/Random.html#longs-long-long-long-
+	//Retourne un entier long aléatoire uniformément dans [0, n[.
+    // Vous pouviez trouver le code https://docs.oracle.com/javase/8/docs/api/java/util/Random.html#longs-long-long-long-
     public static long uniform(long n) {
         if (n <= 0L) throw new IllegalArgumentException("Argument doit etre positive: " + n);
 
@@ -39,36 +37,41 @@ public class Simulation {
         return r;
     }
     
-    //Retourne avec succÃ¨s un boolÃ©en true si p suit d'une distribution de Bernoulli
+    //Retourne avec succès un booléen true si p suit d'une distribution de Bernoulli
     public static boolean bernoulli(double p) {
        //completer
     }
     
     public static Compteur max(Compteur x, Compteur y) {
-      // completer
+    	double comparaison = x.compareTo(y);
+    	if (comparaison == 1.0 ) { 
+    		return x; 
+    	}
+    	else if (comparaison == -1.0) {
+    		return y;    		
+    	}
+    	else return x; //En cas d'egalite retourner l'un ou l'autre (x est choisi arbitrairement)
     }
 	
-	 public static void main(String[] args) {
-	        int n = 10;
-	        Compteur pile = new Compteur("pile");
-	        Compteur face = new Compteur("face");
+	public static void main(String[] args) {
+		int n = 10;
+	    Compteur pile = new Compteur("pile");
+	    Compteur face = new Compteur("face");
 	       
-              //Les instructions du simulation
-                   //completer
-              //afficher la diffÃ©rence entre les score des compteur
+        //Les instructions du simulation
+        	//completer
+	    //afficher la différence entre les score des compteur
 	        
-	        Compteur pile_c = new Compteur("pile");
+	    Compteur pile_c = new Compteur("pile");
 		Compteur pile_c = new Compteur("face");
 		        
-	          //Les instructions du simulation
-                   //completer
-                   //afficher le maximum entre les score des compteur
+	    //Les instructions du simulation
+        	//completer
+		//afficher le maximum entre les score des compteur
 
-
-	        }
-	    
-	        
-	    }
+	}
+	            
+}
 
 
 

@@ -9,37 +9,44 @@ public class Compteur implements Comparable<Compteur> {
 
     
     public Compteur(String id) {
-         // completer
+         id = nom;
+         increment();
     } 
 
    
     public void increment() {
-         // completer
+         compteur++;
     } 
 
    
     public int score() {
-         // completer
+         return compteur; 
     } 
 
    
-    public String toString() {
-         // completer
-    } 
+    @Override
+	public String toString() {
+		return "Compteur [nom=" + nom + ", compteur=" + compteur + "]";
+	} 
 
   
     public int compareTo(Compteur x) {
-                 // completer
+    	/* signum retourne :
+    	 * 1.0 si this.compteur > x.score()
+    	 * -1.0 si this.compteur < x.score()
+    	 *  0.0 si this.compteur == x.score()   
+    	*/
+        return Integer.signum(compteur- x.score());  
     }
     
-	
-      
-        private static Random random=new Random(10000);
+    private static Random random=new Random(10000);
     
-      //Retourne un nombre entier alÃ©atoire uniformÃ©ment dans [0,n[
-	 public static int uniform(int n) {
-	                         // completer
-	    }
+    
+    
+    //Retourne un nombre entier aléatoire uniformément dans [0,n[
+	public static int uniform(int n) {
+		return (int)(Math.random() * n);
+	}
 
 
    
@@ -48,9 +55,9 @@ public class Compteur implements Comparable<Compteur> {
         int essais = 60000;
 
         // Creation n compteurs
-       
- 
-         // incrÃ©mente les compteurs d'essais au hasard
+        
+        
+        // incrémente les compteurs d'essais au hasard
         
 
         // Affichage des resultat
