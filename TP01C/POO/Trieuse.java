@@ -13,21 +13,20 @@ public class Trieuse {
 
     private static class NomOrdre implements Comparator<Etudiant> {
         public int compare(Etudiant x, Etudiant y) {
-            // completer
+        	return x.getNom().compareTo(y.getNom());      
         }
     }
 
 
     private static class SectionOrdre implements Comparator<Etudiant> {
         public int compare(Etudiant x, Etudiant y) {
-            // completer
+            return Integer.signum(x.getSection()-y.getSection());  
         }
     }
+    
+    // Ajouter des methodes  ParNom() et ParSection()
 
-                
-        // Ajouter des méthodes  ParNom() et ParSection()
-
-            //completer 
+    //completer 
 
     
     public static void main(String[] args) {
@@ -39,7 +38,7 @@ public class Trieuse {
         e.AjouterNote("INF2010", "Structures de données et algorithmes", 4);		
         e.AjouterNote("LOG2810", "Structures discrètes", 5);
         e.AjouterNote("INF2610", "Noyau d'un système d'exploitation", 3);
-	System.out.println(e.NoteMoyenne());
+        System.out.println(e.NoteMoyenne());
 
         Etudiant john     = new Etudiant("1797453","john",  2);
         Etudiant Caroline = new Etudiant("1897053","Caroline",    1);

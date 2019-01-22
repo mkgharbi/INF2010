@@ -66,7 +66,7 @@ public class Etudiant {
 	}
 
 	public String getNom() {
-		return this.nom; 
+		return nom; 
 	}
     
 	
@@ -75,7 +75,7 @@ public class Etudiant {
 	}
 
 	public String getPrenom() {
-		return this.prenom; 
+		return prenom; 
 	}
 
 	public void setPrenom(String prenom) {
@@ -94,11 +94,17 @@ public class Etudiant {
 	}
     
     public boolean equals(Object etudiant_x) { 
-    	// On suppose qu'il existe un unique immatricule
-    	//pour chaque etudiant. La comparaison peut se faire 
-    	//seulement en comparant les chaines de Matr 
-    	//de l'etudiant_x et de l'etudiant(this)
-    	return (((Etudiant) etudiant_x).getMatr() == this.Matr) ? true : false; //Operateur Terner
+    	/* 
+    	 * On suppose qu'il existe un unique immatricule
+    	 * pour chaque etudiant. La comparaison peut se faire
+    	 * seulement en comparant les chaines de Matr 
+    	 * de l'etudiant_x et de l'etudiant(this)
+    	 */
+    	int comparaisonMatricule = (int)((Etudiant) etudiant_x).getMatr().compareTo(this.getMatr()); 
+    	
+    	if (comparaisonMatricule == 1 )
+    	 	return true;
+    	else return false;
     }
 
 }

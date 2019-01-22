@@ -2,26 +2,39 @@ package POO;
 
 public class CadreDiplome extends Article {
 	private String categorie;
-	private String couleur;
+	private String couleur; //Eclipse me demande de completer les getters et setters de l'attribut couleur.
+	
 	public CadreDiplome(String NumProduit, String nom, double prix, String couleur,String categorie){
-		//completer
+		super(NumProduit,nom,prix);
+		this.setCouleur(couleur); 
+		this.categorie = categorie; 
 	}
 	
 	public CadreDiplome(String NumProduit, String nom, double prix,String categorie){
-		//completer
+		super(NumProduit,nom,prix);
+		this.categorie = categorie; 
+		this.setCouleur("Sans couleur");
 	}
 	
 	@Override
 	public String getArticleType() {
-		//completer
+		return ("Cadre Diplome");
 	}
-
-	public double getCategorie() {
-		//completer
+	
+	public String getCategorie() {
+		return categorie; 
 	}
 
 	public void setCategorie(String categorie) {
-                   //completer
+        this.categorie = categorie ; 
+	}
+
+	public String getCouleur() {
+		return couleur;
+	}
+
+	public void setCouleur(String couleur) {
+		this.couleur = couleur;
 	}
 	
 }

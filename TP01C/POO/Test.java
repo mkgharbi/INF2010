@@ -4,8 +4,8 @@ public class Test {
 
 	public static void main(String[] args) {
 		Article[] articles = new Article[3];
-		articles[0] =  new Livre("23400199911", "Initiation √† la th√©orie des probabilit√©s", 33.95 , "pdf");			
-		articles[1] =  new CadreDiplome("02045", "Cadre pour dipl√¥me BAC", 139, "Classique");
+		articles[0] =  new Livre("23400199911", "Initiation ‡† la thÈorie des probabilitÈs", 33.95 , "pdf");			
+		articles[1] =  new CadreDiplome("02045", "Cadre pour diplome BAC", 139, "Classique");
                 articles[2] =  new Vetement("4549632", "T-shirt Bleu Caraibes (large) Homme Polytechnique", 16.99, 54);
 		CalculePrix(articles);
 	}
