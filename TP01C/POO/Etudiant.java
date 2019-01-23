@@ -18,7 +18,11 @@ public class Etudiant {
 	public Etudiant(String Matr,String nom, int section) {
             this.Matr = Matr; 
             this.nom = nom; 
-            this.section = section; 
+            this.section = section;
+            this.email = "";
+            this.n_des_notes = 0 ; 
+            this.notes = new NoteCours [N];
+            
 	    }
 	
 	public void AjouterNote(String sigle, String titre, int note){ 
@@ -29,11 +33,13 @@ public class Etudiant {
 			for(int i = 0; i < n_des_notes ; i++ )
 				notes[ i ] = old[ i ];
 		}
+		if (n_des_notes < notes.length) {
+			notes[n_des_notes] = new NoteCours();
+		}
 		//Ajout de l'element a la position n_des_notes  du tableau et l'incrementer :  
 		notes[n_des_notes].sigle = sigle;
 		notes[n_des_notes].titre = titre;
 		notes[n_des_notes].note = note;
-
 		//Icrementer le nombre de notes : 
 		n_des_notes++ ;
 		
@@ -41,12 +47,13 @@ public class Etudiant {
 	
 	public double NoteMoyenne(){
 		double moyenne = 0 ;
-		for (int i =0 ; i < notes.length ; i++ ) {
-			moyenne += notes[i].note;  	// Ajouter l'element note de chaque case du tableau notes. 
+		double somme = 0 ; 
+		for (int i =0 ; i < n_des_notes ; i++ ) {
+			// Ajouter l'element note de chaque case du tableau notes. 
+			somme += (double) notes[i].note;  	
 		}
-		moyenne = moyenne / (notes.length);
+		moyenne = somme / (double)(n_des_notes);
 		return moyenne;
-
 	}
 
 	public String getMatr() {

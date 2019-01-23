@@ -25,9 +25,16 @@ public class Trieuse {
     }
     
     // Ajouter des methodes  ParNom() et ParSection()
-
-    //completer 
-
+    public static Etudiant[] parNom(Etudiant[] etudiant) {
+    	Arrays.sort(etudiant, Par_nom);
+		return etudiant;
+    }
+    
+    public static Etudiant[] parSection(Etudiant[] etudiant) {
+    	Arrays.sort(etudiant, Par_section);
+		return etudiant;
+    }
+    
     
     public static void main(String[] args) {
 
@@ -54,15 +61,22 @@ public class Trieuse {
         // Completer le pseudo-code pour trie les etudiants par nom -section 
         System.out.println("Par le nom ");
         System.out.println("----------");
-            // Completer
-        System.out.println("----------");
         
+        // Tri par Nom : 
+        etudiants = parNom(etudiants); 
+        for (Etudiant etudiant : etudiants) {
+        	System.out.println(etudiant.toString());        	
+        }
+        System.out.println("----------");
 
-
-
+        //Tri par Section : 
         System.out.println("Par section");
         System.out.println("----------");
-                // Completer
+        etudiants = parSection(etudiants);
+        
+        for (Etudiant etudiant : etudiants) {
+        	System.out.print(etudiant.toString());        	
+        }
         System.out.println("----------");
 
         

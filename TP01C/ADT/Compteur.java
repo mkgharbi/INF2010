@@ -9,8 +9,7 @@ public class Compteur implements Comparable<Compteur> {
 
     
     public Compteur(String id) {
-         id = nom;
-         increment();
+         nom = id;
     } 
 
    
@@ -18,12 +17,10 @@ public class Compteur implements Comparable<Compteur> {
          compteur++;
     } 
 
-   
     public int score() {
          return compteur; 
     } 
 
-   
     @Override
 	public String toString() {
 		return "Compteur [nom=" + nom + ", compteur=" + compteur + "]";
@@ -39,29 +36,39 @@ public class Compteur implements Comparable<Compteur> {
         return Integer.signum(compteur- x.score());  
     }
     
-    private static Random random=new Random(10000);
-    
-    
+    private static Random random=new Random(10000);        
     
     //Retourne un nombre entier aléatoire uniformément dans [0,n[
 	public static int uniform(int n) {
-		return (int)(Math.random() * n);
+		return random.nextInt(n);
 	}
-
+	
 
    
     public static void main(String[] args) { 
         int n = 6;
         int essais = 60000;
 
+        
         // Creation n compteurs
-        
-        
-        // incrémente les compteurs d'essais au hasard
-        
+        Compteur compteur1 = new Compteur("Cyrille") ;
+        Compteur compteur2 = new Compteur("Diana") ;
+        Compteur compteur3 = new Compteur("Aicha") ;
+        Compteur compteur4 = new Compteur("Mohamed") ;
+        Compteur compteur5 = new Compteur("Khairallah") ;
+        Compteur compteur6 = new Compteur("Tarek") ;
 
-        // Affichage des resultat
-        
+        Compteur personnesCompteurs [] = { compteur1 , compteur2 , compteur3 ,
+        									compteur4 , compteur5, compteur6 } ; 
+        // incrémente les compteurs d'essais au hasard
+        for (int i = 0 ; i < 60000 ; i++) {
+        	int index = uniform(n); 
+        	personnesCompteurs[index].increment();        	
         }
-    } 
-} 
+        // Affichage des resultat
+        for (int i=0 ; i < n ; i++) { 
+        	System.out.println(personnesCompteurs[i].toString());
+        }
+     
+    }
+}  

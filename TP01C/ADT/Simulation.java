@@ -7,12 +7,12 @@ public class Simulation {
 
 	 //Retourne un nombre réel aléatoire uniformément dans [0,1[
 	    public static double uniform() {
-	    	return Math.random();
+	    	return random.nextDouble();
 	    }
 
 	 //Retourne un nombre entier aléatoire uniformément dans [0,n[
 	    public static int uniform(int n) {
-			return (int)(Math.random() * n);
+			return (random.nextInt(n));
 	    }
 
 	//Retourne un entier long aléatoire uniformément dans [0, n[.
