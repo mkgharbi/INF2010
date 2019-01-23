@@ -61,7 +61,7 @@ public class Compteur implements Comparable<Compteur> {
         Compteur personnesCompteurs [] = { compteur1 , compteur2 , compteur3 ,
         									compteur4 , compteur5, compteur6 } ; 
         // incrémente les compteurs d'essais au hasard
-        for (int i = 0 ; i < 60000 ; i++) {
+        for (int i = 0 ; i < essais ; i++) {
         	int index = uniform(n); 
         	personnesCompteurs[index].increment();        	
         }
