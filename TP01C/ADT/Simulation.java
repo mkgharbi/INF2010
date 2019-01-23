@@ -1,9 +1,9 @@
 package ADT;
-
+import java.lang.IllegalArgumentException ; 
 import java.util.Random;
 
 public class Simulation {
-	 private static Random random;  
+	 private static Random random = new Random();  
 
 	 //Retourne un nombre réel aléatoire uniformément dans [0,1[
 	    public static double uniform() {
@@ -39,7 +39,13 @@ public class Simulation {
     
     //Retourne avec succès un booléen true si p suit d'une distribution de Bernoulli
     public static boolean bernoulli(double p) {
-       //completer
+       if ( p >= 1.0 || p <= 0.0)
+    	   throw new  IllegalArgumentException("Argument donne hors de l'intervalle ]0.0,1.0[")   ; 
+       
+       double uniform = uniform(); 
+       if (p < uniform)
+    	   return true; 
+       else return false; 
     }
     
     public static Compteur max(Compteur x, Compteur y) {
@@ -59,16 +65,25 @@ public class Simulation {
 	    Compteur face = new Compteur("face");
 	       
         //Les instructions du simulation
-        	//completer
+	    	for (int i = 0 ; i < n ; i++) {
+	    		if (bernoulli(0.5)) 
+	    			pile.increment() ;  
+	    		else  face.increment();
+	    	}
 	    //afficher la différence entre les score des compteur
-	        
+	    System.out.println(" La difference entre les deux compteurs est egale a " + Math.abs(pile.score() - face.score()));
+	    	
 	    Compteur pile_c = new Compteur("pile");
-		Compteur pile_c = new Compteur("face");
+		Compteur face_c = new Compteur("face");
 		        
 	    //Les instructions du simulation
-        	//completer
+		for (int i = 0 ; i < n ; i++) {
+    		if (bernoulli(0.5)) 
+    			pile_c.increment() ;  
+    		else  face_c.increment();
+    	}
 		//afficher le maximum entre les score des compteur
-
+		System.out.println("Le compteur maximum entre les 2 compteurs est egale a " + max(pile_c,face_c).score()) ;
 	}
 	            
 }
