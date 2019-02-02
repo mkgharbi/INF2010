@@ -5,17 +5,17 @@ import java.util.Random;
 public class Simulation {
 	 private static Random random = new Random();  
 
-	 //Retourne un nombre réel aléatoire uniformément dans [0,1[
+	 //Retourne un nombre rï¿½el alï¿½atoire uniformï¿½ment dans [0,1[
 	    public static double uniform() {
 	    	return random.nextDouble();
 	    }
 
-	 //Retourne un nombre entier aléatoire uniformément dans [0,n[
+	 //Retourne un nombre entier alï¿½atoire uniformï¿½ment dans [0,n[
 	    public static int uniform(int n) {
 			return (random.nextInt(n));
 	    }
 
-	//Retourne un entier long aléatoire uniformément dans [0, n[.
+	//Retourne un entier long alï¿½atoire uniformï¿½ment dans [0, n[.
     // Vous pouviez trouver le code https://docs.oracle.com/javase/8/docs/api/java/util/Random.html#longs-long-long-long-
     public static long uniform(long n) {
         if (n <= 0L) throw new IllegalArgumentException("Argument doit etre positive: " + n);
@@ -37,7 +37,7 @@ public class Simulation {
         return r;
     }
     
-    //Retourne avec succès un booléen true si p suit d'une distribution de Bernoulli
+    //Retourne avec succï¿½s un boolï¿½en true si p suit d'une distribution de Bernoulli
     public static boolean bernoulli(double p) {
        if ( p >= 1.0 || p <= 0.0)
     	   throw new  IllegalArgumentException("Argument donne hors de l'intervalle ]0.0,1.0[")   ; 
@@ -70,7 +70,7 @@ public class Simulation {
 	    			pile.increment() ;  
 	    		else  face.increment();
 	    	}
-	    //afficher la différence entre les score des compteur
+	    //afficher la diffï¿½rence entre les score des compteur
 	    System.out.println(" La difference entre les deux compteurs est egale a " + Math.abs(pile.score() - face.score()));
 	    	
 	    Compteur pile_c = new Compteur("pile");
