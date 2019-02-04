@@ -3,100 +3,154 @@ package StrcutresDeDonneesSequentielles;
 import java.util.Iterator;
 
 
-public class MyLinkedList<AnyType> implements Iterable<AnyType>
+public class Sac<AnyType extends Comparable <AnyType>>
 {
-	private int theSize;
-	private int modCount = 0; // compteur de modifications
-	private Node<AnyType> beginMarker;
-	private Node<AnyType> endMarker;
-	private static class Node<AnyType>
-	{
-		public Node(AnyType d, Node<AnyType> p, Node<AnyType> n) { 
-			data = d; prev = p; next = n; }
-		}
-		public AnyType data;
-		public Node<AnyType> prev;
-		public Node<AnyType> next;
+	private int size_;
+	private Node<AnyType> first_;
+	private Node<AnyType> last_;
+	
+	
+    private static class Node<AnyType>{
+        private Node<AnyType> next_ = null;
+        private Node<AnyType> previous_ = null;
+        private AnyType item_;
+        
+        public Node(){}
+        public Node(AnyType item){
+        	setItem(item);
+        }
+        
+        //Getters :
+        public Node<AnyType> getPrevious(){
+        	return previous_;
+        }
+        
+        public Node<AnyType> getNext(){
+        	return next_;
+        }
+        public AnyType getItem(){
+        	return item_;
+        }
+        //Setters : 
+        public void setPrevious(Node<AnyType> previous){
+        	previous_ = previous;
+        }
+        public void setNext(Node<AnyType> next){
+        	next_ = next;
+        }
+        public void setItem(AnyType item){
+        	item_ = item;
+        }
+    }
+	
+	//constructor : 
+	public Sac( ) {
+		first_ = new Node<AnyType>();
+		last_ = new Node<AnyType>() ; 
+		first_.setNext(last_);
+		last_.setPrevious(first_);
+		size_ = 0 ; 
+	}
+
+	//getters : 
+	public int size( ) {
+		return size_;
+	}
+	public Node<AnyType> getFirst() {
+		return first_ ; 
+	}
+	public Node<AnyType> getLast() {
+		return last_ ; 
 	}
 	
-	public MyLinkedList( ) {
-		clear( );
-	}
-	public int size( ) {
-		return theSize;
-	}
+	//Insertion 
+    public void push_back(AnyType item){
+        Node<AnyType> node = new Node<AnyType>(item);
+        size_++;
+        node.setNext(getLast());
+        node.setPrevious(getLast().getPrevious());
+        getLast().getPrevious().setNext(node);
+        getLast().setPrevious(node);
+    }
+
+    public void push_front(AnyType item){
+        Node<AnyType> node = new Node<AnyType>(item);
+        size_++;
+        if(isEmpty()){
+            first_.setNext(node);
+            last_.setPrevious(node);
+        }
+        else {
+            node.setPrevious(getFirst());
+            node.setNext(getFirst().getNext());
+            getFirst().getNext().setPrevious(node);
+            getFirst().setNext(node);
+        }
+    }
+
+    public void insertElementByIndex(int idx, AnyType item){
+    	if( idx < 0 || idx > size() )
+			throw new IndexOutOfBoundsException();
+        size_++;
+        Node<AnyType> iterator = getFirst();
+        for(int i = 0; i<idx; i++){
+            if(iterator.getNext() != null && iterator.getNext() != getLast()){
+                iterator = iterator.getNext();
+            }
+        }
+        Node<AnyType> node = new Node<AnyType>(item);
+        node.setPrevious(iterator);
+        node.setNext(iterator.getNext());
+        iterator.setNext(node);
+        node.getNext().setPrevious(node);
+    }
+
+    //Supprimer : 
+
+    public void removeElementByIndex(int position){
+    	if( idx < 0 || idx > size() )
+			throw new IndexOutOfBoundsException();
+        Node<AnyType> iterator = getFirst().getNext();
+        boolean removed = true;
+        for(int i = 0; i<position; i++){
+            if(iterator.getNext() != null && iterator.getNext() != getLast()){
+                iterator = iterator.getNext();
+            }
+            else {
+               removed = false; 
+            }
+        }
+        if(removed){
+            iterator.getPrevious().setNext(iterator.getNext());
+            iterator.getNext().setPrevious(iterator.getPrevious());
+        }
+    }
+
+    //Test : 
 	public boolean isEmpty( ) {	
 		return size() == 0; 
 	}
-	public boolean add( AnyType x ) {
-		add( size(), x ); return true;
-	}
-	public void add(int idx, AnyType x ) {
-		addBefore( getNode( idx ), x ); 
-	}
-	public AnyType get(int idx ) {
-		return getNode( idx ).data;
-	} 
 	
-	public AnyType set(int idx, AnyType newVal) {
-		Node<AnyType> p = getNode( idx );
-		AnyType oldVal = p.data;
-		p.data = newVal;
-		return oldVal;
+	public boolean isHere(AnyType item) {
+		Node<AnyType> iterator = getFirst() ; 
+		while (iterator.getNext() != null  && iterator.getNext() != getLast() ) {
+			iterator = iterator.getNext() ; 
+			if (iterator.getItem() == item)
+				return true; 
+		}
+		return false; 
 	}
 
-	public void clear() {
-		beginMarker = new Node<AnyType>(null, null, null);
-		endMarker = new Node<AnyType>(null, beginMarker, null);
-		beginMarker.next = endMarker;
-		theSize = 0;
-		modCount++;
-	}
-	
-	private void addBefore(Node<AnyType> p, AnyType x) {
-		Node<AnyType> newNode = new Node<AnyType>(x, p.prev, p);
-		newNode.prev.next = newNode;
-		p.prev = newNode;
-		theSize++;
-		modCount++;
-	} 	
-	
-	private Node<AnyType> getNode(int idx) {
-		Node<AnyType> p;
-		if( idx < 0 || idx > size() )
+    public AnyType getElementByIndex(int position){
+    	if( position < 0 || position > size() )
 			throw new IndexOutOfBoundsException();
-		if( idx < size( ) / 2 ) {
-			p = beginMarker.next;
-			for(int i = 0; i < idx; i++ )
-				p = p.next;
-		}
-		else {
-			p = endMarker;
-			for(int i = size( ); i > idx; i-- )
-				p = p.prev;
-		}
-		return p;
-	}
-
-	private class LinkedListIterator implements java.util.Iterator<AnyType>
-	{
-		private Node<AnyType> current = beginMarker.next;
-		private int expectedModCount = modCount;
-		private boolean okToRemove = false;
-		public boolean hasNext( )
-		{
-		return current != endMarker;
-		}
-		
-		public AnyType next() {
-			if( modCount != expectedModCount )
-				throw new java.util.ConcurrentModificationException();
-			if( !hasNext() )
-				throw new java.util.NoSuchElementException();
-			AnyType nextItem = current.data;
-			current = current.next;
-			return nextItem;
-		}
-
-		}
+        Node<AnyType> iterator = getFirst().getNext();
+        for(int i = 0; i<position; i++){
+            if(iterator.getNext() != null && iterator.getNext() != getLast())
+                iterator = iterator.getNext();
+        }
+        return iterator.getItem();
+    }
 }
+
+
