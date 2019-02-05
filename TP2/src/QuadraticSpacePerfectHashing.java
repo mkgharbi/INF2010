@@ -7,7 +7,7 @@ public class QuadraticSpacePerfectHashing<AnyType>
 {
    static int p = 46337;
 
-   int a, b, m, n;
+   int a, b, m, n, position;
    AnyType[] items;
    Random generator;
 
@@ -41,7 +41,19 @@ public class QuadraticSpacePerfectHashing<AnyType>
    private int findPos(AnyType x)
    {
       // Completer
-      return 0;
+	   //Definition de l'espace de memoire ''m''
+	   m=(int) Math.pow(n, 2);
+	   //on genere deux valeurs aleatoires pour les variables a et b
+	   int a=generator.nextInt(100000)+1;
+	   int b=generator.nextInt(100000)+1;
+	   //Definition de notre fonction de Hachge
+	   int HashLocation = ((a*x+b)%p)%m;
+	   //Verification que HashLocation appartien a l'intervalle definit
+	   if (HashLocation>=0&&HashLocation<m)
+		   return HashLocation;
+	   else 
+           return 0;
+	  
    }
 
    public boolean contains(AnyType x )
@@ -77,6 +89,25 @@ public class QuadraticSpacePerfectHashing<AnyType>
    private boolean unsuccessfulMemoryAllocation(ArrayList<AnyType> array)
    {
       // A completer
+	   //On genere aleatoirement a et b
+	   a=generator.nextInt(100000)+1;
+	   b=generator.nextInt(100000)+1;
+	   //initialisation du tableau
+	   items = (AnyType[]) new Object[m];
+	   // On insere Nos elements dans notre tableau deja alloué
+	   for (int k=0;k<=array.size();k++)
+	   {
+		   position=findPos(array.get(k));
+		   if(items[position]!=null)
+			   return false;
+		   else if (items[position]==null)
+		   {
+			   items[position]=array.get(k);
+			   return true;
+			  
+		   }
+		   
+	   }
       return false;
    }
    
