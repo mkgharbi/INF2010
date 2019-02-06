@@ -22,7 +22,7 @@ public static void main(String[] args) {
 	//////////////////////////////////////////////////
 	System.out.println("==END TESTS FILE==");
 	Pile<Integer> pile = new Pile<Integer>();
-	System.out.println("La pile est vide " + pile.estVide());
+	System.out.println("La pile est vide " + pile.isEmpty());
 	pile.push(11);
 	pile.push(123);
 	pile.push(-55);
@@ -31,11 +31,11 @@ public static void main(String[] args) {
 	System.out.println("11 est la " + pile.isHere(11));
 	System.out.println(pile.pop()==11);
 	System.out.println("11 est la : " + pile.isHere(11));
-	System.out.println("La pile est vide : " + pile.estVide());
+	System.out.println("La pile est vide : " + pile.isEmpty());
 	System.out.println("==END TESTS PILE==");
 	///////////////////////////////////////////////////
 	File<Integer> file = new File<Integer>();
-	System.out.println("La File est vide ? " + file.estVide());
+	System.out.println("La File est vide ? " + file.isEmpty());
 	file.push(11);
 	file.push(123);
 	file.push(-55);
@@ -44,6 +44,6 @@ public static void main(String[] args) {
 	System.out.println("-55 est La ? " + file.isHere(-55));
 	System.out.println(file.pop()==-55);
 	System.out.println("-55 est la ? " + file.isHere(-55));
-	System.out.println("La file est vide ? " + file.estVide());
+	System.out.println("La file est vide ? " + file.isEmpty());
 }
 }

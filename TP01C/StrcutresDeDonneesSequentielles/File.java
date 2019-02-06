@@ -56,7 +56,7 @@ public class File<AnyType> {
     }
     
     //Verifier si la File est vide : 
-    public boolean estVide() {
+    public boolean isEmpty() {
     	return (size_ == 0);
     }
     

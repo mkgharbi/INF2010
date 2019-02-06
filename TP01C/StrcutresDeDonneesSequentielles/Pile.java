@@ -62,7 +62,7 @@ public class Pile<AnyType> {
 		return last_;
 	}
 	// Methode verifier si la Pile est vide ou non :  vrai c-a-d elle vide et faux sinon. 
-	public boolean estVide() {
+	public boolean isEmpty() {
 		return (taille_ == 0 )	;
 	}
 	
