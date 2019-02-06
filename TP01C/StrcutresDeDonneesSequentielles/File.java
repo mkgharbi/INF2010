@@ -48,8 +48,7 @@ public class File<AnyType> {
     public File(){
     	
         size_ = 0;
-        last_ = null; 
-    	head_ = null ; 
+        first_ = new Node <AnyType>(); 
         head_ = new Node<AnyType>() ; 
         last_ = new Node<AnyType>();
         first_.next_ = last_;
