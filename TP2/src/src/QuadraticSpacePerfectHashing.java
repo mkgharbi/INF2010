@@ -1,4 +1,4 @@
-package tp2;
+
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -47,9 +47,9 @@ public class QuadraticSpacePerfectHashing<AnyType>
 	   int a=generator.nextInt(100000)+1;
 	   int b=generator.nextInt(100000)+1;
 	   //Definition de notre fonction de Hachge
-	   int HashLocation = ((a*x+b)%p)%m;
+	   int HashLocation = ((a*(int)(x)+b)%p)%m;
 	   //Verification que HashLocation appartien a l'intervalle definit
-	   if (HashLocation>=0&&HashLocation<m)
+	   if (HashLocation>=0 && HashLocation<m)
 		   return HashLocation;
 	   else 
            return 0;

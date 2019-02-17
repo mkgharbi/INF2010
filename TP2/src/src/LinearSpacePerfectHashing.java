@@ -1,4 +1,4 @@
-package tp2;
+
 
 import java.util.Random;
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ public class LinearSpacePerfectHashing<AnyType>
 
    private int findPos(AnyType x)
    { // deficition de la position selon la formule donnée
-	   int position = (((a*(int)x) + b) % p) % n;
+	   int position = ( ( (a*(int)x) + b) % p) % n;
 	 // verifiacation de l'intervalle
 	      if (position <0){
 	         position += n;
@@ -54,7 +54,7 @@ public class LinearSpacePerfectHashing<AnyType>
    {    //on trouve la position 
 	   int position = findPos(x);
 	   //on verifie que le nombre d'objet n est pas null
-	   if (n==null) return false;
+	   if (n == 0) return false;
 	   else
 	   {
 		   return(data[position].contains(x));
@@ -74,10 +74,23 @@ public class LinearSpacePerfectHashing<AnyType>
       
       if(n == 1)
       {
-         // Completer
-         return;
+    	  data[0].setArray(array); 
       }
-      
+      else {
+    	  //A refaire 
+    	  for (int i = 0 ; i < data.length ; i++) { 
+    		  int counter = 0 ; 
+    		  for ( int j=0 ; j < data[i].memorySize() ; j++) 
+       		  {
+    			 /* if (contains(data[i].[j])) {
+    				  memorySize++;  
+    			  }*/
+    		  }
+    		  for (int j=0 ; j < data[i].memorySize() ; j++) { 
+    			  //data[j].memoryAllocate();
+    		  }
+    	  }
+      }
       // A completer
    }
    
@@ -88,9 +101,14 @@ public class LinearSpacePerfectHashing<AnyType>
    
    public String toString(){
       StringBuilder sb = new StringBuilder();
-      
-      // completer
-      
+           
+   	   for ( int i = 0 ; i < data.length ; i++) {
+   		   sb.append(String.valueOf(i));
+   		   sb.append(" -> ");
+   	   
+          if( data[i].memorySize() != 0 ) 
+        	  data[i].toString();
+   	   }
       return sb.toString();
-   }
+}
 }

@@ -1,4 +1,5 @@
-package ADT;
+package  TP1.ADT;
+
 import java.lang.IllegalArgumentException ; 
 import java.util.Random;
 

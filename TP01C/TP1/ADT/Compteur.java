@@ -1,4 +1,4 @@
-package ADT;
+package TP1.ADT;
 
 import java.util.Random;
 

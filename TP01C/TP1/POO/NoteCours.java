@@ -1,4 +1,4 @@
-package POO;
+package TP1.POO;
 
 public class NoteCours {
 	public String sigle;

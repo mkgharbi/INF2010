@@ -1,4 +1,4 @@
-package StrcutresDeDonneesSequentielles;
+package TP1.StrcutresDeDonneesSequentielles;
 
 import java.util.Iterator;
 
@@ -107,12 +107,12 @@ public class Sac<AnyType extends Comparable <AnyType>>
 
     //Supprimer : 
 
-    public void removeElementByIndex(int position){
+    public void removeElementByIndex(int idx){
     	if( idx < 0 || idx > size() )
 			throw new IndexOutOfBoundsException();
         Node<AnyType> iterator = getFirst().getNext();
         boolean removed = true;
-        for(int i = 0; i<position; i++){
+        for(int i = 0; i<idx; i++){
             if(iterator.getNext() != null && iterator.getNext() != getLast()){
                 iterator = iterator.getNext();
             }

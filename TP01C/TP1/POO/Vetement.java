@@ -1,4 +1,4 @@
-package POO;
+package TP1.POO;
 
 public class Vetement extends Article {
 	private double taille;

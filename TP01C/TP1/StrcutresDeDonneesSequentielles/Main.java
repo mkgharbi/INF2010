@@ -1,4 +1,4 @@
-package StrcutresDeDonneesSequentielles;
+package TP1.StrcutresDeDonneesSequentielles;
 
 
 
