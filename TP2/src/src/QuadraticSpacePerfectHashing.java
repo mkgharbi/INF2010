@@ -85,7 +85,6 @@ public class QuadraticSpacePerfectHashing<AnyType>
       while( unsuccessfulMemoryAllocation( array ) );
    }
 
-   @SuppressWarnings("unchecked")
    private boolean unsuccessfulMemoryAllocation(ArrayList<AnyType> array)
    {
       // A completer
@@ -93,7 +92,7 @@ public class QuadraticSpacePerfectHashing<AnyType>
 	   a=generator.nextInt(100000)+1;
 	   b=generator.nextInt(100000)+1;
 	   //initialisation du tableau
-	   items = (AnyType[]) new Object[m];
+	   
 	   // On insere Nos elements dans notre tableau deja alloué
 	   for (int k=0;k<=array.size();k++)
 	   {
