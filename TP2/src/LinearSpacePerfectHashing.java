@@ -39,15 +39,27 @@ public class LinearSpacePerfectHashing<AnyType>
    }
 
    private int findPos(AnyType x)
-   {
-      // completer
-      return 0;
+   { // deficition de la position selon la formule donnée
+	   int position = (((a*(int)x) + b) % p) % n;
+	 // verifiacation de l'intervalle
+	      if (position <0){
+	         position += n;
+	      }
+	      //retour de la position
+	      return position;
+     
    }
    
    public boolean contains(AnyType x)
-   {      
-      // completer
-      return false;
+   {    //on trouve la position 
+	   int position = findPos(x);
+	   //on verifie que le nombre d'objet n est pas null
+	   if (n==null) return false;
+	   else
+	   {
+		   return(data[position].contains(x));
+	   }
+      
    }
       
    @SuppressWarnings("unchecked")

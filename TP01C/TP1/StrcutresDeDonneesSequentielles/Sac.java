@@ -107,12 +107,12 @@ public class Sac<AnyType extends Comparable <AnyType>>
 
     //Supprimer : 
 
-    public void removeElementByIndex(int idx){
+    public void removeElementByIndex(int position){
     	if( idx < 0 || idx > size() )
 			throw new IndexOutOfBoundsException();
         Node<AnyType> iterator = getFirst().getNext();
         boolean removed = true;
-        for(int i = 0; i<idx; i++){
+        for(int i = 0; i<position; i++){
             if(iterator.getNext() != null && iterator.getNext() != getLast()){
                 iterator = iterator.getNext();
             }
