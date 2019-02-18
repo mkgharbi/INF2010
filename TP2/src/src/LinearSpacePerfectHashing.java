@@ -1,6 +1,7 @@
 
 
 import java.util.Random;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,22 +41,24 @@ public class LinearSpacePerfectHashing<AnyType>
    }
 
    private int findPos(AnyType x)
-   { // deficition de la position selon la formule donn�e
-	   int position = (((a*(int)x) + b) % p) % n;
+   { 	
+	   int position = ((a*x.hashCode() + b) % p) % n;
+	   
 	 // verifiacation de l'intervalle
-	      if (position <0){
-	         position += n;
+	      if (position >= n ){
+	         position = position % n;
 	      }
+	      else if (position <0) 
+	    	  position *= -1 ;
 	      //retour de la position
 	      return position;
-     
    }
    
    public boolean contains(AnyType x)
    {    //on trouve la position 
 	   int position = findPos(x);
 	   //on verifie que le nombre d'objet n est pas null
-	   if (n==0) return false;
+	   if (data[position]==null) return false;
 	   else
 	   {
 		   return(data[position].contains(x));
@@ -63,44 +66,46 @@ public class LinearSpacePerfectHashing<AnyType>
       
    }
       
-   private void allocateMemory(ArrayList<AnyType> array)
+   @SuppressWarnings("unchecked")
+private void allocateMemory(ArrayList<AnyType> array)
    {
       clear();
       
       if(array == null || array.size() == 0) return;
 
       n    = array.size();
+      data = new QuadraticSpacePerfectHashing[n];
 
       if(n == 1)
       {
          // definition de la taille de la memoire
-    	  memorySize = 2;
-          data[0].items[0] = array.get(0);
+    	  data[0] = new QuadraticSpacePerfectHashing<AnyType>(array);
+    	  memorySize = 1;
           return;
       }
-      
-      // A completer
-      //initialisation de la taille de la memoire 
-      memorySize = 0;
-      QuadraticSpacePerfectHashing<AnyType>[] dataTemp = new QuadraticSpacePerfectHashing<AnyType>[n];
 
-      for(int k = 0; k<n; k++){
-         AnyType type;
-         type = array.get(k);
-         if (type != null) {
-        	 int position = findPos(type);
-        	 dataTemp[k].items[position] = type;        	 
-         }
+ 	 //On genere aleatoirement a et b
+ 	   a=generator.nextInt(p-1)+1;
+ 	   b=generator.nextInt(p);
+ 	  
+      java.util.Iterator<AnyType> iterator = array.iterator();
+      @SuppressWarnings("unchecked")
+	ArrayList<AnyType>[] arrayTempo = (ArrayList<AnyType>[]) new ArrayList[n]; 
+      while(iterator.hasNext()) {
+    	  AnyType type = iterator.next();
+    	  int position = findPos(type);
+    	  if (arrayTempo[position] == null)
+    		  arrayTempo[position] = new ArrayList<AnyType>();
+    	  arrayTempo[position].add(type); 
       }
-
-      for(int j = 0; j<n; j++){
-    	  //instantiation du tableau
-         data[j] = dataTemp[j];
-         //calcul de la taille de la memoire allou�e
-         memorySize += data[j].memorySize();
+      for (int i = 0; i < n; i++) {
+    	  if(arrayTempo[i] != null) {
+    		  int nElement = arrayTempo[i].size();
+    		  memorySize += nElement * nElement;
+    		  data[i] = new QuadraticSpacePerfectHashing<AnyType>(arrayTempo[i]);
+    	  }
       }
    }
-   
    public int memorySize() 
    {
       return memorySize;
@@ -111,8 +116,12 @@ public class LinearSpacePerfectHashing<AnyType>
       //utilisation de l'API stringbuilder qui cr�e un generateur de chaines de caracteres
       // utilisation de la methode ''append'' qui est surcharg�e et permet d'ajouter une chaine specifique a une autre
       for(int j = 0; j<n; j++){
-          sb.append(j + " -> " + data[j].toString() + "\n");
-       }
+    	  sb.append(j + " -> ");  
+		   if(data[j] != null)
+	        	 sb.append(data[j].toString());
+		   sb.append("\n");
+	   }
+       
       return sb.toString();
    }
 }

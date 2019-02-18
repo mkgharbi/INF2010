@@ -89,11 +89,22 @@ public class HashFunctions
    /**
     * Question 1.3.1
     */
-   public static ArrayList<Integer> randomIntegers(int length)
+   
+public static ArrayList<Integer> randomIntegers(int length)
    {
       Random generator = new Random( System.nanoTime() );
       ArrayList<Integer> al = new ArrayList<Integer>();
-      // Completer
+      
+      
+      for (int i=0 ; i < length ; i++) {
+    	  
+    	  Integer generatedValue = generator.nextInt();
+    	  while(al.contains(generatedValue)) {
+    		  generatedValue = generator.nextInt();
+    	  }
+    	  
+    	  al.add(generatedValue);
+      }
       return al;
    }
 }

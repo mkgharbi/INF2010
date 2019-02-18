@@ -40,19 +40,15 @@ public class QuadraticSpacePerfectHashing<AnyType>
 
    private int findPos(AnyType x)
    {
-      // Completer
-	   //Definition de l'espace de memoire ''m''
-	   m=(int) Math.pow(n, 2);
-	   //on genere deux valeurs aleatoires pour les variables a et b
-	   int a=generator.nextInt(100000)+1;
-	   int b=generator.nextInt(100000)+1;
-	   //Definition de notre fonction de Hachge
-	   int HashLocation = ((a*(int)(x)+b)%p)%m;
-	   //Verification que HashLocation appartien a l'intervalle definit
-	   if (HashLocation>=0 && HashLocation<m)
-		   return HashLocation;
-	   else 
-           return 0;
+	   
+	   int position = ((a*x.hashCode()+b) % p) % m;
+	   //pour garantir ret inclus dans [0,m)
+	   if (position < 0)
+		   position *= -1;
+	   while (position >= m)
+		   position =position % m;
+	   return position;
+     
 	  
    }
 
@@ -61,12 +57,12 @@ public class QuadraticSpacePerfectHashing<AnyType>
       if( n == 0 ) return false; 
 
       int index = findPos(x);
-
+      
       return ( ( items[index] != null ) && ( items[index].equals(x) ) );
    }
 
    @SuppressWarnings("unchecked")
-   private void allocateMemory(ArrayList<AnyType> array)
+private void allocateMemory(ArrayList<AnyType> array)
    {
       clear();
 
@@ -77,37 +73,32 @@ public class QuadraticSpacePerfectHashing<AnyType>
 
       if(n == 1)
       {
-         items = (AnyType[]) new Object[m];
-         items[0]	= array.get(0);
+         items = (AnyType[]) (new Object[m]);
+         items[0]= array.get(0);
          return;
       }
 
       while( unsuccessfulMemoryAllocation( array ) );
    }
 
-   private boolean unsuccessfulMemoryAllocation(ArrayList<AnyType> array)
+   @SuppressWarnings("unchecked")
+private boolean unsuccessfulMemoryAllocation(ArrayList<AnyType> array)
    {
-      // A completer
-	   //On genere aleatoirement a et b
-	   a=generator.nextInt(100000)+1;
-	   b=generator.nextInt(100000)+1;
+	 //On genere aleatoirement a et b
+	   a=generator.nextInt(p-1)+1;
+	   b=generator.nextInt(p);
 	   //initialisation du tableau
-	   
+       items = (AnyType[]) (new Object[m]);
 	   // On insere Nos elements dans notre tableau deja alloué
-	   for (int k=0;k<=array.size();k++)
-	   {
-		   position=findPos(array.get(k));
-		   if(items[position]!=null)
-			   return false;
-		   else if (items[position]==null)
-		   {
-			   items[position]=array.get(k);
-			   return true;
-			  
-		   }
-		   
-	   }
-      return false;
+       java.util.Iterator<AnyType> iterator = array.iterator();
+		  while(iterator.hasNext()) {
+			 AnyType type = iterator.next();
+			 int position = findPos(type);
+			 if (items[position] != null)
+				 return true;
+			 items[position] = type ;
+		  }
+	      return false;
    }
    
    public int memorySize() 
