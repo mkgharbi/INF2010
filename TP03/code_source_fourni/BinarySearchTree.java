@@ -11,12 +11,14 @@ public class BinarySearchTree<T extends Comparable<? super T> > {
 
     // TODO: initialisation
     public BinarySearchTree(T item) {
+    	root = new BinaryNode<T>(item);
 
     }
 
     // TODO: on insere un nouvel item a partir de la racine
     // O(log(n))
     public void insert(T item) {
+    	root.insert(item);
 
     }
 
@@ -24,19 +26,29 @@ public class BinarySearchTree<T extends Comparable<? super T> > {
     // O(log(n))
     public boolean contains(T item) {
 
-        return false;
+        if(item==null)
+        {
+        	return flase;
+        }
+        else
+        {
+        	return root.conatins(item);
+        }
     }
 
     // TODO: trouver la hauteur de l'arbre
     // O(n)
     public int getHeight() {
-        return -1;
+        int height = root.getHeight();
+        return height;
     }
 
     // TODO: placer dans une liste les items de l'arbre en ordre
     // O(n)
     public List<BinaryNode<T>> getItemsInOrder() {
-        return null;
+        List<BinaryNode<T>>NewList=new LinkedList<BinaryNode<T>>();
+        root.fillListInOrder(NewList);
+        return NewList;
     }
 
     // TODO: retourner la liste d'item en String selon le bon format
