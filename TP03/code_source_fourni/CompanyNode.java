@@ -8,19 +8,27 @@ public class CompanyNode implements Comparable<CompanyNode> {
     // TODO: initialisation
     // O(1)
     public CompanyNode(Integer data) {
+    	this.money=data;
+    	this.worstChild=null;
+    	this.childs= new BinarySearchTree<CompanyNode>(this);
 
     }
 
     // TODO: la compagnie courante achete une autre compagnie
     // O(log(n))
     public void buy(CompanyNode item) {
-
+    	//Verification si l'item a ajouter n est pas NULL
+    	if(item==null)
+          return;
+    	else 
+    		this.childs.insert(item);
+    	
     }
 
     // TODO: on retourne le montant en banque de la compagnie
     // O(1)
     public Integer getMoney() {
-        return Integer.MIN_VALUE;
+        return money;
     }
 
     // TODO: on rempli le builder de la compagnie et de ses enfants avec le format
@@ -38,6 +46,6 @@ public class CompanyNode implements Comparable<CompanyNode> {
     @Override
     public int compareTo(CompanyNode item) {
 
-        return 0;
+        return this.money.compareTo(item.getMoney());
     }
 }
