@@ -54,19 +54,19 @@ public class BinaryNode<T extends Comparable<? super T> > {
     // O(log(n))
     public boolean contains(T item) {
         
-       boolean FOUND = flase;// initialisation de la variable  a false
-       if (item.equals(date))
+       boolean found = false;// initialisation de la variable  a false
+       if (item.equals(data))
        
     	   return true;
     	  
        //verification de la branche droite
        else if (data.compareTo(item)<0 && right !=null)
-       
-    	   FOUND = right.conatains(item);
+    	   found = right.contains(item);
        //verification de la branche gauche
        else if (data.compareTo(item)>0 && left != null)
+    	   found = left.contains(item);
         //retour du resultat en boolean
-    	   return FOUND;
+       return found;
        
     }
 
@@ -74,8 +74,10 @@ public class BinaryNode<T extends Comparable<? super T> > {
     // O(n)
     public int getHeight() {
         //initialisation des variables de recherches gauche et droite;
-    	int A=0,B=0;
-    	if(A!=null && B!=null)
+    	int rightSide = right.getHeight() +1 ;
+    	int leftSide = left.getHeight() +1 ;
+    	/*int B=0;
+    	if(A != null && B != null)
     	{
     		A++;
     		A=left.getHeight()+A;
@@ -83,7 +85,8 @@ public class BinaryNode<T extends Comparable<? super T> > {
     		B=right.getHeight()+B;
  
     	}
-    	return Math.max(A, B);
+    	*/
+    	return Math.max(rightSide, leftSide);
     }
 
     // TODO: l'ordre d'insertion dans la liste est l'ordre logique
@@ -96,8 +99,10 @@ public class BinaryNode<T extends Comparable<? super T> > {
     		//remplissage de la liste
     		left.fillListInOrder(result);
     		
-    	     result.add(this);
+    		result.add(this);
     		}
+    	//ajouter le centre : 
+    	
     	//verification de la liste
     	if(right != null)
     		{

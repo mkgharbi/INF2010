@@ -22,7 +22,6 @@ public class CompanyNode implements Comparable<CompanyNode> {
           return;
     	else 
     		this.childs.insert(item);
-    	
     }
 
     // TODO: on retourne le montant en banque de la compagnie

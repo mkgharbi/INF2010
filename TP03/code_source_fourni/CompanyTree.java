@@ -6,16 +6,16 @@ public class CompanyTree {
 
     // TODO: initialisation
     public CompanyTree(CompanyNode item) {
-
+    	root = item ; 
     }
 
-    // TODO: une compagnie mère achete une autre compagnie
+    // TODO: une compagnie mere achete une autre compagnie
     // O(n)
     public void buy(CompanyNode item) {
-
+    	
     }
 
-    // TODO: on retourne le montant en banque de la compagnie mère
+    // TODO: on retourne le montant en banque de la compagnie mere
     // O(1)
     public Integer getMoney() {
         return Integer.MIN_VALUE;
