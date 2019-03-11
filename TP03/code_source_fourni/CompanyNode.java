@@ -22,6 +22,7 @@ public class CompanyNode implements Comparable<CompanyNode> {
           return;
     	else 
     		this.childs.insert(item);
+    	
     }
 
     // TODO: on retourne le montant en banque de la compagnie
@@ -37,14 +38,27 @@ public class CompanyNode implements Comparable<CompanyNode> {
     // >  > A21...
     // les enfants sont afficher du plus grand au plus petit (voir TestCompany.testPrint)
     // O(n)
-    public void fillStringBuilderInOrder(StringBuilder builder, String prefix) {
-
+    public void fillStringBuilderInOrder(StringBuilder builder, String prefix) 
+    {
+builder.append(prefix);
+builder.append("\n");
+while(childs!=null )
+{
+	Lsit<BinaryNode<CompanyNode>>NEWLISt = childs.getItemsInOrder();
+	for (int j=0;j<NEWLISt.size();j++)
+		NEWLISt.get(j).getData.fillStringBuilderInOrder(builder, prefix + " > ");
+}
     }
 
     // TODO: on override le comparateur pour defenir l'ordre
     @Override
     public int compareTo(CompanyNode item) {
 
-        return this.money.compareTo(item.getMoney());
+        int temp=item.getMoney();
+        if (money<temp)
+        {
+        	return(-1);
+        }
+        else return (1);
     }
 }
