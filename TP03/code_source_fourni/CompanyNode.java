@@ -10,27 +10,23 @@ public class CompanyNode implements Comparable<CompanyNode> {
     public CompanyNode(Integer data) {
     	this.money=data;
     	this.worstChild=null;
-    	this.childs= new BinarySearchTree<CompanyNode>(this);
-
+    	this.childs=new BinarySearchTree<CompanyNode>(); 
     }
-
     // TODO: la compagnie courante achete une autre compagnie
     // O(log(n))
-    public void buy(CompanyNode item) {
-    	//Verification si l'item a ajouter n est pas NULL
-    	if(item==null)
-          return;
-    	else 
+    public void buy(CompanyNode item) {  	
+    	if(childs!=null) 
     		this.childs.insert(item);
     	
+    	money += item.getMoney();
+    	if (item.worstChild.getMoney() < this.worstChild.getMoney())
+    		this.worstChild = item.worstChild;
     }
-
     // TODO: on retourne le montant en banque de la compagnie
     // O(1)
     public Integer getMoney() {
         return money;
     }
-
     // TODO: on rempli le builder de la compagnie et de ses enfants avec le format
     //A
     // > A1
@@ -40,25 +36,22 @@ public class CompanyNode implements Comparable<CompanyNode> {
     // O(n)
     public void fillStringBuilderInOrder(StringBuilder builder, String prefix) 
     {
-builder.append(prefix);
-builder.append("\n");
-while(childs!=null )
-{
-	Lsit<BinaryNode<CompanyNode>>NEWLISt = childs.getItemsInOrder();
-	for (int j=0;j<NEWLISt.size();j++)
-		NEWLISt.get(j).getData.fillStringBuilderInOrder(builder, prefix + " > ");
-}
+		builder.append(prefix + money + "\n");	
+		if(childs!=null )
+		{
+			List<BinaryNode<CompanyNode>>newList = childs.getItemsInOrder();
+			for (BinaryNode<CompanyNode> node : newList)
+				node.getData().fillStringBuilderInOrder(builder, prefix + " > ");
+		}
     }
-
     // TODO: on override le comparateur pour defenir l'ordre
     @Override
     public int compareTo(CompanyNode item) {
-
-        int temp=item.getMoney();
-        if (money<temp)
-        {
-        	return(-1);
-        }
-        else return (1);
+        if (this.money > item.getMoney())
+        	return -1; 
+        else if (this.money < item.getMoney())
+        	return 1;
+        else 
+        	return 0 ; 
     }
 }
