@@ -22,8 +22,20 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
     {
 	this.min = min;
 	
-	// COMPLETEZ
-	// invoquez buildMinHeap() ou buildMaxHeap() en fonction du parametre min;
+	// invoquez buildMinHeap() ou buildMaxHeap() en fonction du parametre min; Il faut construire le tableau dans les 2 cas
+	currentSize = items.length;
+	array = (AnyType[]) new Comparable[currentSize + 1 ]; //le premier index est à 1.
+	int index = 1 ; 
+	
+	for ( AnyType it : items)
+		array[index++] = it ;
+	
+	if (min) { //Cas minimal 
+		buildMinHeap(); 
+	}		
+	else { //Cas Maximal
+		buildMaxHeap();
+	}
     }
     
     public boolean offer( AnyType x )
@@ -34,8 +46,24 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 	if( currentSize + 1 == array.length )
 	    doubleArray();
 	
-	// COMPLETEZ
+	//Percolation vers le haut: 2 cas possibles : minimal ou maximal.
+	int hole = ++currentSize;	
 	
+	//Cas minimal : 
+	if (min) {
+		for( ; hole > 1 && x.compareTo( array[ hole / 2 ] ) < 0; hole /= 2)
+			array[ hole ] = array[ hole / 2 ];
+		array[ hole ] = x;
+	}
+	//Cas maximal : 
+	else {
+		for( ; hole > 1 && x.compareTo( array[ hole / 2 ] ) > 0; hole /= 2)
+			array[ hole ] = array[ hole / 2 ];
+		array[ hole ] = x;
+	}
+	
+	//Incrementer modifications:
+	modifications++;
 	return true;
     }
     
@@ -49,7 +77,22 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
     
     public AnyType poll()
     {
-	//COMPLETEZ
+		
+		AnyType minItem = array[1]; //sauver la valeur de la racine ( qui est la minimale)
+	   	array[ 1 ] = array[ currentSize-- ]; // mettre l'avant dernier element a la racine. 
+	   	
+	   	//Cas minimal : 
+	   	if (min) {
+	   		percolateDownMinHeap(1,currentSize);
+	   		
+	   	}
+	   	//Cas maximal
+	   	else {
+	   		percolateDownMaxHeap(1,currentSize);
+	   	}
+
+	   	modifications++;
+	   	return minItem;
     }
     
     public Iterator<AnyType> iterator()
@@ -59,13 +102,16 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
     
     private void buildMinHeap()
     {
-	//COMPLETEZ
+    	for(int i=currentSize/2;i >0; i--) 
+    		percolateDownMinHeap(i, array.length);     //Construction basee sur percolateDownMinHeap
     }
     
     private void buildMaxHeap()
     {
-	//COMPLETEZ
+    	for(int i=currentSize/2;i >0; i--) 
+    		percolateDownMaxHeap(i, array.length);    //Construction basee sur percolateDownMaxHeap
     }
+    		
     
     public boolean isEmpty()
     {
@@ -132,7 +178,23 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
     private static <AnyType extends Comparable<? super AnyType>>
 				    void percolateDownMinHeap( AnyType[] array, int hole, int size, boolean heapIndexing )
     {
-	//COMPLETEZ
+    	if (heapIndexing) {
+    		
+	    	int child;
+	    	AnyType tmp = array[ hole ];
+	    	for( ; hole * 2 <= size; hole = child )
+	    	{
+		    	child = hole * 2; //Considérer fils de gauche
+		    	if( child != size && array[ child + 1 ].compareTo( array[ child ] ) < 0 ) // il y a deux fils et fils droit<fils gauche
+		    		child++; //Considérer fils droit
+		    	
+		    	if( array[ child ].compareTo( tmp ) < 0 )//fils considéré< élément à percoler
+		    		array[ hole ] = array[ child ];//Remonter le fils courrent de un niveau
+		    	else
+		    		break; //L’élément à percoler sera inséré à position hole
+		    }
+	    	array[ hole ] = tmp;
+    	}
     }
     
     /**
@@ -151,21 +213,47 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
      * @param heapIndexing  True si les elements commencent a l'index 1, false sinon
      */
     private static <AnyType extends Comparable<? super AnyType>> 
-				    void percolateDownMaxHeap( AnyType[] array, int hole, int size, boolean heapIndexing )
+		void percolateDownMaxHeap( AnyType[] array, int hole, int size, boolean heapIndexing )
     {
-	//COMPLETEZ
+		if (heapIndexing) {	
+			int child;
+	    	AnyType tmp = array[ hole ];
+	    	for( ; hole * 2 <= size; hole = child )	{
+	    		child = hole * 2; 
+		    	if( child != size - 1 && array[ child + 1 ].compareTo( array[ child ] ) > 0 ) 
+		    		child++; 
+				if( array[ child ].compareTo( tmp ) > 0 )
+		    		array[ hole ] = array[ child ];
+		    	else
+		    		break; 
+			    }
+	    	array[ hole ] = tmp;
+		} 
     }
     
     public static <AnyType extends Comparable<? super AnyType>>
 				   void heapSort( AnyType[] a )
     {
-	//COMPLETEZ
+    	for( int i = a.length / 2; i >= 0; i-- ) /* construire le monceau max*/
+    		percolateDownMaxHeap( a, i, a.length,true);
+    	
+    	for( int i = a.length - 1; i > 0; i-- )
+    	{
+    		swapReferences( a, 0, i ); /* permuter le maximum avec le dernier élément du monceau */
+    		percolateDownMaxHeap(a,0,i,true); 
+    	} 
     }
     
     public static <AnyType extends Comparable<? super AnyType>>
 				   void heapSortReverse( AnyType[] a )
     {
-	//COMPLETEZ
+    	for( int i = a.length / 2; i >= 0; i-- ) /* construire le monceau min */
+    		percolateDownMinHeap( a, i, a.length,true);
+    	
+    	for( int i = a.length - 1; i > 0; i-- ) {
+    		swapReferences( a, 0, i ); /* permuter le minimum avec le dernier élément du monceau */
+    		percolateDownMinHeap(a,0,i,true); 
+    	}     
     }
     
     public String nonRecursivePrintFancyTree()
@@ -213,15 +301,22 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
     }
     
     private class HeapIterator implements Iterator {
+    	private int expectedCount = modifications;
+    	private int iteratorCurrentPosition = 1;
 	
 	public boolean hasNext() {
-	    //COMPLETEZ
+	    return iteratorCurrentPosition >= currentSize ? false : true ;
 	}
 
 	public Object next() throws NoSuchElementException, 
-				    ConcurrentModificationException, 
-				    UnsupportedOperationException {
-	    //COMPLETEZ
+								ConcurrentModificationException, 
+								UnsupportedOperationException {
+		if (expectedCount != modifications)
+			throw new ConcurrentModificationException("Le manceau est modifie durant l'iteration");
+		if(!hasNext())
+			throw new NoSuchElementException("Il n'y a plus d'element.");
+		else 
+			return array[iteratorCurrentPosition++];
 	}
 	
 	public void remove() {
