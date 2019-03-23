@@ -219,13 +219,13 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 			int child;
 	    	AnyType tmp = array[ hole ];
 	    	for( ; hole * 2 <= size; hole = child )	{
-	    		child = hole * 2; 
+	    		child = hole * 2;
 		    	if( child != size - 1 && array[ child + 1 ].compareTo( array[ child ] ) > 0 ) 
-		    		child++; 
+		    		child++;
 				if( array[ child ].compareTo( tmp ) > 0 )
 		    		array[ hole ] = array[ child ];
 		    	else
-		    		break; 
+		    		break;
 			    }
 	    	array[ hole ] = tmp;
 		} 
@@ -258,11 +258,68 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
     
     public String nonRecursivePrintFancyTree()
     {
-	String outputString = "";
+    	int root = 1 ;
+    	//Cas de base : 
+    	if (array[root] == null)
+    		return ("Tableau vide");
+    	
+    	String outputString = "";
+    	
+    	Stack<Integer> indexStack = new Stack<Integer>(); 
+    	indexStack.push(root);
+    	
+    	Stack<String> spacing = new Stack<String>() ; 
+    	spacing.push(outputString);
+    	
+    	boolean feuilleANoeud = false; 
+    	
+    	while (indexStack.isEmpty() != true) {
+    		String espace = spacing.peek();
+    		root = indexStack.peek(); 
+    		
+    		//les index sont donc 2*i +1 pour le fils gauche et 2*i+2 pour le fils droit
+    		int leftChildIndex = leftChild(root,true); 
+    		int rightChildIndex = leftChildIndex + 1 ; 
+    		
+    		if (feuilleANoeud) {
+    			feuilleANoeud = false;
+    			spacing.pop();
+    		}
+    		
+    		outputString = outputString + espace + "|__" ; 
+    		
+    		if (root <= currentSize) {
+    			boolean estFeuille = root > (currentSize/2) ;
+    			
+    			outputString = outputString + array[root] + "\n" ; 
+    			
+    			indexStack.pop();
+    			
+    			if ( root % 2 == 0 ) {
+    				espace = espace + "| "; 
+    				spacing.push(espace);
+    			}
+    			else {
+    				espace = espace + " " ; //laisser l 'espace 
+    				spacing.push(espace);
+    			}
+    			if (estFeuille == false) {
+    				indexStack.push(rightChildIndex);
+    				indexStack.push(leftChildIndex);
+    			}
+    			else {
+    				spacing.pop();
+    				feuilleANoeud = true; 
+    			}
+    			
+    		}
+    		else {
+    			outputString = outputString + "null \n"; //Vide
+    			indexStack.pop();
+    		}
+    	}
 	
-	//COMPLETEZ
-
-	return outputString;
+    	return outputString;
     }
     
     public String printFancyTree()
