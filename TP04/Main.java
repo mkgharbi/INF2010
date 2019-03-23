@@ -1,6 +1,8 @@
 import java.util.*; 
 
-
+/*Remarque:
+ * En mettant tous les elements dans le main deja ecrits, on ne pouvait pas afficher le resultats des tests.  
+*/
 public class Main 
 {
    /**
@@ -27,7 +29,7 @@ public class Main
       }
 
       // en construisant le monceau depuis le depart
-      System.out.println("Monceau min contruit element par element:");
+      System.out.println("Monceau min construit element par element:");
       System.out.println( heap.printFancyTree() );
 
       heap = new BinaryHeap<Integer>(false);
@@ -36,15 +38,15 @@ public class Main
 	  heap.offer( item );
 
       // en construisant le monceau depuis le depart
-      System.out.println("Monceau max contruit element par element:");
+      System.out.println("Monceau max construit element par element:");
       System.out.println( heap.printFancyTree() );
 
       heap = new BinaryHeap<Integer>(items,false);
-      System.out.println("Monceau max contruit a partir d'un tableau:");
+      System.out.println("Monceau max construit a partir d'un tableau:");
       System.out.println( heap.printFancyTree() );
 
       heap = new BinaryHeap<Integer>(items,true);
-      System.out.println("Monceau min contruit a partir d'un tableau:");
+      System.out.println("Monceau min construit a partir d'un tableau:");
       System.out.println( heap.printFancyTree() );
 
       System.out.println();
@@ -114,7 +116,6 @@ public class Main
    }
 
 // Tests 
-
    
    //Tests Poll : 
    private static void testMinHeapPoll(Integer[] items) {
@@ -130,7 +131,7 @@ public class Main
 	   int itemMinimale= resultatTestMinHeap.poll(); 
 	   
 	   if (  itemMinimale == valeurMinimale ) 
-		   System.out.print("Test Reussi" );
+		   System.out.print("Test Reussi \n" );
 	   else { 
 		   System.out.print("Echec : \n\t " + " ValeurMinimale: " + valeurMinimale + " et la valeur trouvee avec poll est  " + itemMinimale + "\n");
 	   }   
@@ -148,7 +149,7 @@ public class Main
 	   int itemMaximal= resultatTestHeap.poll(); 
 	   
 	   if (  itemMaximal == valeurMaximale ) 
-		   System.out.print("Test Reussi" );
+		   System.out.print("Test Reussi \n" );
 	   else 
 		   System.out.print("Echec : \n\t " + " ValeurMaximale: " + valeurMaximale + " et la valeur trouvee avec poll est  " + itemMaximal + "\n");
    }
@@ -162,7 +163,7 @@ public class Main
 	   resultatHeap.offer(valeurTest);
 	   int root = resultatHeap.poll(); // root est la valeur minimale 
 	   if (root == valeurTest)
-		   System.out.print("Test Reussi" );
+		   System.out.print("Test Reussi \n " );
 	   else 
 		   System.out.print("Echec : \n\t " + " ValeurMinimale: " + valeurTest + " et la valeur trouvee avec poll est  " + root + "\n");
    }
@@ -175,7 +176,7 @@ public class Main
 	   resultatHeap.offer(valeurTest);
 	   int root = resultatHeap.poll();// root est la valeur maximale 
 	   if (root == valeurTest)
-		   System.out.print("Test Reussi" );
+		   System.out.print("Test Reussi \n" );
 	   else 
 		   System.out.print("Echec : \n\t " + " Valeuraximale :  " + valeurTest + " et la valeur trouvee avec poll est  " + root + "\n");
    }
@@ -210,19 +211,24 @@ public class Main
 		Iterator<Integer> iteratorTest = testHeap.iterator();
 		iteratorTest.next();
 		
-		System.out.print("Echec\n");
+		if (iteratorTest.next() == null)
+			System.out.print("Echec\n");
+		else 
+			System.out.print("Reussi \n");
 	}
    
    //testOfferWhileIteration : 
    private static void testOfferWhileIteration (Integer[] items) {
-	   System.out.print("Test :fonction next() avec offer() modifications while iteration => ");
+	   System.out.print("Test :fonction next() avec offer() modifications while iteration = ");
 		BinaryHeap<Integer> heapTest = new BinaryHeap<Integer>(items, true);
 		heapTest.offer(1);
 
 		Iterator<Integer> iterator = heapTest.iterator();
 		iterator.next();
-		
-		System.out.print("Echec\n");
+		if (iterator.next() == null)
+			System.out.print("Echec\n");
+		else 
+			System.out.print("Reussi \n");
    }
    
    
@@ -232,7 +238,7 @@ public class Main
 		// Comparaison entre reponse et itemAttendu element par element .
 		Integer [] reponse = new Integer[] {11, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 56, 57, 58}; //Tableau trié
 		
-		Integer[] itemAttendu = new Integer[] {11, 37, 41, 56, 42, 49, 57, 50, 43, 58, 51, 44, 48, 52, 45, 38, 53, 46, 39, 54, 47, 40}; 
+		Integer[] itemAttendu = new Integer[] {11, 48, 41, 56, 49, 42, 57, 50, 43, 58, 51, 44, 37, 52, 45, 38, 53, 46, 39, 54, 47, 40};; 
 		BinaryHeap<Integer> testHeap = new BinaryHeap<Integer>(itemAttendu, true);
 		
 		testHeap.heapSort(itemAttendu);
@@ -255,7 +261,7 @@ public class Main
 		// Comparaison entre reponse et itemAttendu element par element .
 		Integer [] reponse = new Integer[] {58, 57, 56, 54, 53, 52, 51, 50, 49, 48, 47, 46, 45, 44, 43, 42, 41, 40, 39, 38, 37, 11}; //Tableau trié à l'inverse
 		
-		Integer[] itemAttendu = new Integer[] {11, 48, 41, 56, 49, 42, 57, 50, 43, 58, 51, 44, 37, 52, 45, 38, 53, 46, 39, 54, 47, 40}; 
+		Integer[] itemAttendu = new Integer[] {11, 48, 41, 56, 49, 42, 57, 50, 43, 58, 51, 44, 37, 52, 45, 38, 53, 46, 39, 54, 47, 40};; 
 		BinaryHeap<Integer> testHeap = new BinaryHeap<Integer>(itemAttendu, true);
 		
 		testHeap.heapSortReverse(itemAttendu);

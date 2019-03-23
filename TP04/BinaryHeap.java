@@ -185,11 +185,12 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 	    	for( ; hole * 2 <= size; hole = child )
 	    	{
 		    	child = hole * 2; //Considérer fils de gauche
-		    	if( child != size && array[ child + 1 ].compareTo( array[ child ] ) < 0 ) // il y a deux fils et fils droit<fils gauche
-		    		child++; //Considérer fils droit
-		    	
-		    	if( array[ child ].compareTo( tmp ) < 0 )//fils considéré< élément à percoler
-		    		array[ hole ] = array[ child ];//Remonter le fils courrent de un niveau
+		    	if (child + 1 < size) {
+		    		if( child != size && array[ child + 1 ].compareTo( array[ child ] ) < 0 ) // il y a deux fils et fils droit<fils gauche
+		    			child++; //Considérer fils droit
+		    		if( array[ child ].compareTo( tmp ) < 0 )//fils considéré< élément à percoler
+		    			array[ hole ] = array[ child ];//Remonter le fils courrent de un niveau
+		    	}
 		    	else
 		    		break; //L’élément à percoler sera inséré à position hole
 		    }
@@ -220,10 +221,13 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 	    	AnyType tmp = array[ hole ];
 	    	for( ; hole * 2 <= size; hole = child )	{
 	    		child = hole * 2;
-		    	if( child != size - 1 && array[ child + 1 ].compareTo( array[ child ] ) > 0 ) 
-		    		child++;
-				if( array[ child ].compareTo( tmp ) > 0 )
-		    		array[ hole ] = array[ child ];
+	    		if (child + 1 < size) {
+	    			if( child != size - 1 && array[ child + 1 ].compareTo( array[ child ] ) > 0 ) 
+	    				child++;
+	    		
+	    			if( array[ child ].compareTo( tmp ) > 0 )
+	    				array[ hole ] = array[ child ];
+	    		}
 		    	else
 		    		break;
 			    }
