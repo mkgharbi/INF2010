@@ -1,7 +1,8 @@
 import java.util.*; 
 
 /*Remarque:
- * En mettant tous les elements dans le main deja ecrits, on ne pouvait pas afficher le resultats des tests.  
+ * En mettant tous les elements dans le main deja ecrits, 
+ * on ne pouvait pas afficher le resultats des tests alors qu'ils sont implementes. 
 */
 public class Main 
 {
@@ -60,6 +61,7 @@ public class Main
       System.out.println("Tableau d'origine:");
       System.out.println( printArray( items ) );
       
+      //A corriger tri 
       BinaryHeap.heapSort( items );
       System.out.println("Tableau ordonne:");
       System.out.println( printArray( items ) );
@@ -68,6 +70,7 @@ public class Main
       System.out.println("Tableau inversement ordonne:");
       System.out.println( printArray( items ) );
 
+      
 
       /*
        * Ajouter appels pour repondre a la question
@@ -75,7 +78,9 @@ public class Main
       
       //L'implementation des tests est au dessous du main: 
       
-      System.out.println("\n---------- Tests des Heaps min et max  ----------");
+      
+      System.out.println("\nTests des Heaps min et max:");
+      System.out.print("---------------------------------\n");
       	
       testMinHeapPoll(items);
       testMaxHeapPoll(items);
@@ -83,21 +88,25 @@ public class Main
       testMaxHeapOffer(items);
 		
       // Tests des Exceptions: 
+     
+      try {testPollWhileIteration(items);}
+      catch(Exception e) {System.out.print("Test: poll reussi \n");}
+		
       try {testOutOfBondIterator(items);}
       catch(Exception e) {System.out.print("Test: outOfBounds reussi \n");}
 		
       try {testIteratorRemove(items);}
       catch(Exception e) {System.out.print("Test Iterator Remove reussi\n");}
 		
-      try {testPollWhileIteration(items);}
-      catch(Exception e) {System.out.print("Test: poll reussi \n");}
-		
       try {testOfferWhileIteration(items);}
       catch(Exception e) {System.out.print("Test: iteration reussie \n");}
 		
       //Test Sort:
-      testSortedArray();
-      testReverseSortedArray();
+      //Sort normal : 
+      testSortArray();
+      //Inverse Sort : 
+      testReverseSortArray();
+      //Fancy Tree : 
       testPrintFancyTree();
    }
 
@@ -233,7 +242,7 @@ public class Main
    
    
    //testSortedArray : 
-   private static void testSortedArray() {
+   private static void testSortArray() {
 		System.out.print("Test :fonction  heapSort() = ");
 		// Comparaison entre reponse et itemAttendu element par element .
 		Integer [] reponse = new Integer[] {11, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 56, 57, 58}; //Tableau trié
@@ -241,7 +250,7 @@ public class Main
 		Integer[] itemAttendu = new Integer[] {11, 48, 41, 56, 49, 42, 57, 50, 43, 58, 51, 44, 37, 52, 45, 38, 53, 46, 39, 54, 47, 40};; 
 		BinaryHeap<Integer> testHeap = new BinaryHeap<Integer>(itemAttendu, true);
 		
-		testHeap.heapSort(itemAttendu);
+		BinaryHeap.heapSort(itemAttendu);
 		
 		for(int index = 0; index < reponse.length; index++) {
 			if(itemAttendu[index] != reponse[index]) { //Condition difference 
@@ -256,14 +265,13 @@ public class Main
    
    
    //testReverseSortedArray : 
-   private static void testReverseSortedArray() {
+   private static void testReverseSortArray() {
 		System.out.print("Test : fonction heapSortReverse() = ");
 		// Comparaison entre reponse et itemAttendu element par element .
 		Integer [] reponse = new Integer[] {58, 57, 56, 54, 53, 52, 51, 50, 49, 48, 47, 46, 45, 44, 43, 42, 41, 40, 39, 38, 37, 11}; //Tableau trié à l'inverse
 		
 		Integer[] itemAttendu = new Integer[] {11, 48, 41, 56, 49, 42, 57, 50, 43, 58, 51, 44, 37, 52, 45, 38, 53, 46, 39, 54, 47, 40};; 
 		BinaryHeap<Integer> testHeap = new BinaryHeap<Integer>(itemAttendu, true);
-		
 		testHeap.heapSortReverse(itemAttendu);
 		
 		for(int index = 0; index < reponse.length; index++) {
