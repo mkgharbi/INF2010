@@ -8,15 +8,32 @@ public class Graph {
 	
 	public Graph() {
 		// A compléter 
+		this.nodes = new ArrayList<Node>();
+        this.edges = new ArrayList<Edge>();		
 	}
 	
 	public List<Edge> getEdgesGoingFrom(Node source) {
-		// A complèter 
 		
+		List<Edge> resultGoingFrom = new ArrayList<Edge>();
+		
+		for (Edge edge : edges) {
+			if 	( source.equals(edge.getSource())) {
+				resultGoingFrom.add(edge);
+			}
+		}
+		return resultGoingFrom;
 	}
 	public List<Edge> getEdgesGoingTo(Node dest) {
-		// A complèter 
 		
+		List<Edge> resultGoingTo = new ArrayList<Edge>();
+		
+		for (Edge edge : edges) {
+			if 	( dest.equals(edge.getDestination())) {
+				resultGoingTo.add(edge);
+			}
+		}
+		
+		return resultGoingTo;
 	}
 	
 	// Accesseurs 
